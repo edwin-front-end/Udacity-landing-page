@@ -73,9 +73,9 @@ const sectionObserver = () => {
 		entries.forEach((entry) => {
 			if (!entry.isIntersecting) {
 				entry.target.classList.remove("your-active-class");
-				// navBarLinks.forEach((link) => {
-				// 	link.entry.classList.remove("active");
-				// });
+				navBarLinks.forEach((link) => {
+					link.entry.classList.remove("active");
+				});
 			} else {
 				entry.target.classList.add("your-active-class");
 				navBarLinks.forEach((link)=>{link.classList.add("active")})
