@@ -71,17 +71,17 @@ const sectionObserver = () => {
 
 	const observer = new IntersectionObserver((entries) => {
 		entries.forEach((entry) => {
-			if (!entry.isIntersecting) {
-				entry.target.classList.remove("your-active-class");
-				navBarLinks.forEach((link) => {
-					link.
-					classList.remove("active");
-				});
-			} else {
-				entry.target.classList.add("your-active-class");
-				navBarLinks.forEach((link)=>{link.classList.add("active")})
-			}
+			navBarLinks.forEach((link) => {
+				if (!entry.isIntersecting) {
+					entry.target.classList.remove("your-active-class");
+					link.classList.remove("active");
+				} else {
+					entry.target.classList.add("your-active-class");
+					link.classList.add("active");
+				}
+			});
 		});
+
 	}, options);
 
 	sections.forEach((section) => {
