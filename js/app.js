@@ -40,7 +40,7 @@ const NavBuilder = () => {
 		const listItem = document.createElement("li");
 		listItem.classList.add("list-item")
 		// create an anchor tag for the menu links
-		listItem.innerHTML = `<a href="" class="menu__link">${section.dataset.nav}</a>`;
+		listItem.innerHTML = `<a href="" class="menu__link" data-section="${section.id}">${section.dataset.nav}</a>`;
 		// listen to the click event on "li" element to scroll to the selected section
 		listItem.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -57,31 +57,27 @@ const NavBuilder = () => {
 
 NavBuilder();
 
-// Add class 'active' to section when near top of viewport
-const navBarLinks = document.querySelectorAll("a.menu__link");
-console.log(navBarLinks)
-
-const sectionObserver = () => {
 	// Intersection Observer API used to observe which section is on the viewport
+const sectionObserver = () => {
 	const options = {
 		root: null,
-		threshold: 0.35,
+		threshold: 0.65,
 		rootMargin: "0px",
 	};
 
 	const observer = new IntersectionObserver((entries) => {
 		entries.forEach((entry) => {
-			navBarLinks.forEach((link) => {
-				if (!entry.isIntersecting) {
-					entry.target.classList.remove("your-active-class");
-					link.classList.remove("active");
-				} else {
-					entry.target.classList.add("your-active-class");
-					link.classList.add("active");
-				}
-			});
+			const link = document.querySelector(
+				`[data-section=${entry.target.id}]`
+			);
+			if (!entry.isIntersecting) {
+				entry.target.classList.remove("your-active-class");
+				link.classList.remove("active");
+			} else {
+				entry.target.classList.add("your-active-class");
+				link.classList.add("active");
+			}
 		});
-
 	}, options);
 
 	sections.forEach((section) => {
